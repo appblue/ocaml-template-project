@@ -6,8 +6,9 @@ Simple OCaml template project with integration towards Emacs with UTop/Merlin/Tu
 ;; (TODO: issue with TAB completion after reload)
 (defun make-and-reload ()
   (interactive)
-  (let ((cbuff (current-buffer)))
-    (compile "make -k")
+  (let ((cbuff (current-buffer))
+	(makefile-path (locate-dominating-file "." "Makefile")))
+    (compile (concat "cd " makefile-path " && make -k"))
     (utop-kill)
 
     ;; restart utop
