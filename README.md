@@ -8,15 +8,18 @@ Simple OCaml template project with integration towards Emacs with UTop/Merlin/Tu
   (interactive)
   (let ((cbuff (current-buffer))
 	(makefile-path (locate-dominating-file "." "Makefile")))
-    (compile (concat "cd " makefile-path " && make -k"))
-    (utop-kill)
+    (if makefile-path
+	(progn
+	  (compile (concat "cd " makefile-path " && make -k"))
+	  (utop-kill)
 
-    ;; restart utop
-    (let ((buf (get-buffer-create utop-buffer-name))
-	  (cmd utop-command))
-      (pop-to-buffer buf)
-      (setq utop-command cmd)
-      (with-current-buffer buf (utop-mode)))))
-      
+	  ;; restart utop
+	  (let ((buf (get-buffer-create utop-buffer-name))
+		(cmd utop-command))
+	    (pop-to-buffer buf)
+	    (setq utop-command cmd)
+	    (with-current-buffer buf (utop-mode))))
+      (message "No Makefile found"))))
+
 (global-set-key (kbd "C-c C-v") 'make-and-reload)
 ```
