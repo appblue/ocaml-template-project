@@ -15,9 +15,7 @@ Simple OCaml template project with integration towards Emacs with UTop/Merlin/Tu
 	  (cmd utop-command))
       (pop-to-buffer buf)
       (setq utop-command cmd)
-      (with-current-buffer buf (utop-mode)))
-    
-    ;;(switch-to-buffer cbuff)
-    ))
+      (with-current-buffer buf (utop-mode)))))
+      
 (global-set-key (kbd "C-c C-v") 'make-and-reload)
 ```
